@@ -1,0 +1,82 @@
+import random
+import numpy as np
+import math
+
+# Definimos la función objetivo de Rastrigin para una dimensión
+def objective_function(x):
+    """
+    Función de Rastrigin para una sola variable (x).
+    El mínimo global es 0 en x = 0.
+    """
+    return 10 + x**2 - 10 * math.cos(2 * math.pi * x)
+
+# El resto del código es similar, pero con la función de Rastrigin
+def generate_population(size, lower_bound, upper_bound):
+    population = [] 
+    for _ in range(size):
+        individual = random.uniform(lower_bound, upper_bound)
+        population.append(individual)
+    return population
+
+def evaluate_population(population):
+    return [(individual, objective_function(individual)) for individual in population]
+
+def tournament_selection(population, tournament_size=3):
+    tournament = random.sample(population, tournament_size)
+    tournament.sort(key=lambda x: x[1])
+    return tournament[0][0]
+
+def crossover(parent1, parent2):
+    return (parent1 + parent2) / 2
+
+def levy_flight_step(beta=1.5):
+    sigma_u = (math.gamma(1 + beta) * math.sin(math.pi * beta / 2) / 
+               (math.gamma((1 + beta) / 2) * beta * (2 * ((beta - 1) / 2)))) * (1 / beta)
+    
+    u = np.random.normal(0, sigma_u)
+    v = np.random.normal(0, 1)
+    
+    return u / (np.abs(v) ** (1 / beta))
+
+def mutate_levy(individual, alpha=0.1, mutation_rate=0.1):
+    if random.random() < mutation_rate:
+        step = alpha * levy_flight_step()
+        individual += step
+    return individual
+
+def genetic_algorithm(population_size, lower_bound, upper_bound, generations, mutation_rate):
+    population = generate_population(population_size, lower_bound, upper_bound)
+    
+    for generation in range(generations):
+        evaluated_population = evaluate_population(population)
+        evaluated_population.sort(key=lambda x: x[1])
+        
+        print(f"Generation {generation + 1}: Best solution = {evaluated_population[0][0]}, Best fitness = {evaluated_population[0][1]}")
+        
+        new_population = []
+        
+        for _ in range(population_size):
+            parent1 = tournament_selection(evaluated_population)
+            parent2 = tournament_selection(evaluated_population)
+            child = crossover(parent1, parent2)
+            child = mutate_levy(child, mutation_rate=mutation_rate)
+            new_population.append(child)
+        
+        population = new_population
+    
+    best_solution = min(evaluate_population(population), key=lambda x: x[1])
+    return best_solution
+
+# Parámetros del algoritmo
+population_size = 50
+lower_bound = -5.12
+upper_bound = 5.12
+generations = 100
+mutation_rate = 0.1
+
+# Ejecutamos el Algoritmo Genético
+best_solution = genetic_algorithm(population_size, lower_bound, upper_bound, generations, mutation_rate)
+
+print("\nResultado final:")
+print(f"Mejor solución encontrada: x = {best_solution[0]}")
+print(f"Valor mínimo de f(x) = {best_solution[1]}")
