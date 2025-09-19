@@ -39,11 +39,11 @@ lower_bound	-5.12	Límite inferior del espacio de búsqueda
 upper_bound	5.12	Límite superior del espacio de búsqueda
 generations	100	Número de generaciones
 mutation_rate	0.1	Probabilidad de aplicar mutación
-🚀 Ejecución
+## 🚀 Ejecución
 Para correr el script, simplemente ejecuta:
 
 bash
-python nombre_del_script.py
+python templeModificado.py
 Verás en consola la evolución de la mejor solución por generación y el resultado final.
 
 ## 📚 Requisitos
@@ -55,6 +55,7 @@ Instalación de dependencias:
 
 bash
 pip install numpy
+
 ## 🧪 Ejemplo de salida
 Código
 Generation 1: Best solution = -0.23, Best fitness = 0.53
