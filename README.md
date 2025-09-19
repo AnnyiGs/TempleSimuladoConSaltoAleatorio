@@ -63,3 +63,7 @@ Generation 1: Best solution = -0.23, Best fitness = 0.53
 Resultado final:
 Mejor solución encontrada: x = -0.0001
 Valor mínimo de f(x) = 0.00002
+
+---
+👨‍💻 *Autor: OCHOA ORTEGA ANDREA JOSELYN*  
+📅 *TEMPLE SIMULADO CON SALTOS ALEATORIOS* 
