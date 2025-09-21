@@ -65,5 +65,5 @@ Mejor solución encontrada: x = -0.0001
 Valor mínimo de f(x) = 0.00002
 
 ---
-👨‍💻 *Autor: OCHOA ORTEGA ANDREA JOSELYN #216*  
+👨‍💻 *Autor: OCHOA ORTEGA ANDREA JOSELYN #216479624*  
 📅 *TEMPLE SIMULADO CON SALTOS ALEATORIOS* 
